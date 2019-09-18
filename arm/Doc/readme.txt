@@ -26,14 +26,14 @@
 			[0xAA] [0xAA] [Yaw: 4 byte float] [Pitch: 4 byte float]将接收到的yaw数据原封不动地发到TX-2
 			
 	与gimbal云台通信的格式：
-		发送：	[0xAA] [0xAA]: 请求yaw\pitch
+		发送：	[0xAA] [0xAA]: 请求yaw\pitch （取消）
 				
 		接收：	[0xAA] [0xAA] [Yaw: 4 byte float] [Pitch: 4 byte float]
 		
 	信号不可信表示值：（指在TX2上收到的数据）
 		高度： 		0xFFFF （读到此数时，表示不可信）
 		舵机位置：  >1000 时候不可信
-		云台角度：  若有返回，必可信
+		云台角度：  若有返回，必可信。（开不开心？）
 		
 
 4.中断分配：				 优先级				管脚

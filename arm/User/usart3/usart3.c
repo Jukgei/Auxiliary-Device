@@ -171,10 +171,8 @@ void signal_feedback(void)
 		SendPostion(5);
 		feedback &= 0xDF;
 	}
-	if((feedback & 0x40) == 0x40) //第6位为1返回yaw角和pitch角度
+	if((feedback & 0x40) == 0x40) //第6位为1返回yaw角和pitch角度，由于无法修改云台程序、故删去。应该继续使用
 	{
-		//读云台yaw并返回
-		Get_Gimbal_Data();
 		Send_Gimbal();
 		feedback &= 0xBF;
 	}

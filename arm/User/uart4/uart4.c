@@ -3,8 +3,9 @@
 /*-----UART4_TX-----PC10-----*/
 /*-----UART4_RX-----PC11-----*/
 
-uint8_t gimbal_data[10] = {0};
+//uint8_t gimbal_data[10] = {0};
 //uint8_t gimbal[10] = {0};
+extern uint8_t gimbal_send[10];
 void UART4_Configuration(void)
 {
 	
@@ -55,14 +56,10 @@ void Get_Gimbal_Data(void)
 void Send_Gimbal(void)
 {
 	uint8_t i = 0;
-	if(gimbal_data[0] == 0xAA && gimbal_data[1] == 0xAA)	//判断接收到了数据没有，如果接收到了才发
+	for(i = 0; i < 10 ; i++)
 	{
-		for(i = 0; i < 10; i++)
-		{
-			USART_SendData(USART3,gimbal_data[i]);
-			gimbal_data[i] = 0;
-			Delay_us(10);
-		}
+		USART_SendData(USART3,gimbal_send[i]);
+		Delay_us(10);
 	}
 }
 
@@ -106,7 +103,7 @@ void UART4_IRQHandler(void)
 			isGotFrameHeader = false;
 			gimbal[0] = 0xAA;
 			gimbal[1] = 0xAA;
-			memcpy(gimbal_data,gimbal,10);
+			//memcpy(gimbal_data,gimbal,10);
 		}
 	}
 }
