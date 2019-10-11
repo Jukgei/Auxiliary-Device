@@ -7,7 +7,7 @@
 
 
 void UART4_Configuration(void);
-void Get_Gimbal_Data(void);
-void Send_Gimbal(void);
+//void Get_Gimbal_Data(void);
+//void Send_Gimbal(void);
 
 #endif

@@ -76,19 +76,19 @@ bool isRxCompleted(void)
 
 void SendPostion(uint8_t ID)
 {
-	
 	int temp = 0;
 	uint16_t position = 0;
-	uint16_t header = 0xffff-ID;
+	uint8_t header = 0xff-ID;
 	temp = LobotSerialServoReadPosition(ID);
 	position = temp;
-	USART_SendData(USART3,(uint8_t)header);
+	USART_SendData(USART3,header);
 	Delay_us(10);
-	USART_SendData(USART3,(uint8_t)(header>>8));
+	USART_SendData(USART3,header);
 	Delay_us(10);
 	USART_SendData(USART3,(uint8_t)position);
 	Delay_us(10);
 	USART_SendData(USART3,(uint8_t)(position>>8));
+	Delay_us(10);
 }
 
 void USART1_IRQHandler(void)

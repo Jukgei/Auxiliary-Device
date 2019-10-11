@@ -12,18 +12,18 @@
 	工作模式			   ： 0xDD 0xDD [Yaw:4 byte float] [Pitch:4 byte float] [Roll: 4 byte float] [gripper: 1 byte uint8_t]
 	（以上弃用）
 	
-	一个控制数据包30个字节，按以下方式组织：
+	一个控制数据包25个字节，按以下方式组织：
 			[0xDD] [0xDD] [2 byte angles] [2 byte times] [2 byte angles] [2 byte times] [2 byte angles] [2 byte times] [2 byte angles] [2 byte times] [2 byte angles] [2 byte times] 
-			[1 byte gripper] [2 byte yaw gimbal] [2 byte pitch gimbal] [1 byte feedback data] [~0xDD] [~0xDD]
+			[1 byte gripper] [~0xDD] [~0xDD]
 			共30个字节。
-			feedback data:由一个字节八位组成。第1-5位为1时返回1-5号电机位置。第6位为云台yaw\pitch。第0位为无人机高度。
+			feedback data:由一个字节八位组成。第1-5位为1时返回1-5号电机位置。第6位为云台yaw\pitch。第0位为无人机高度。	（取消）
 			(gripper: 0x11:loose ; 0x22:grasp; 0x33:stop)
 			由于大小端问题：要先发第八位再发高八位，例：500=0x01F4 发送顺序是F4 01
 			
 	反馈数据格式：
 			[0xFF-ID] [0xFF-ID] [uint16_t position] 反馈舵机位置
 			[0xEE] [0xEE][uint16_t distance] 反馈高度
-			[0xAA] [0xAA] [Yaw: 4 byte float] [Pitch: 4 byte float]将接收到的yaw数据原封不动地发到TX-2
+			[0xAA] [0xAA] [Yaw: 4 byte float] [Pitch: 4 byte float]将接收到的yaw数据原封不动地发到TX-2  （取消）
 			
 	与gimbal云台通信的格式：
 		发送：	[0xAA] [0xAA]: 请求yaw\pitch （取消）
@@ -33,7 +33,7 @@
 	信号不可信表示值：（指在TX2上收到的数据）
 		高度： 		0xFFFF （读到此数时，表示不可信）
 		舵机位置：  >1000 时候不可信
-		云台角度：  若有返回，必可信。（开不开心？）
+		云台角度：  若有返回，必可信。（开不开心？）（取消）
 		
 
 4.中断分配：				 优先级				管脚
@@ -48,7 +48,7 @@
 	TIM3:	输出4路PWM 			无		CH1:PB4 | CH2:PB3 | CH3:PB0 | CH4:PB1		// PB0是夹子，PB4:yaw和PB3:pitch
 	GPIO    控制夹子电机正反转 	无		PC2 | PC3	pwm_out: PB0
 			舵机控制            无		yaw：PB4		pitch：PB3 
-	UART4	与云台通信		4			
+	UART4	与云台通信		4									（取消）
 	
 	
 5.电机控制周期：100ms

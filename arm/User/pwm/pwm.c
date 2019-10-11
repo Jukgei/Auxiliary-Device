@@ -57,11 +57,11 @@ void TIM3_Configurate(uint32_t arr, uint16_t psc)
 	TIM_Cmd(TIM3, ENABLE);  //使能TIM3
 }
 
-void gimbal_control(uint16_t pitch, uint16_t yaw)
-{
-	TIM_SetCompare1(TIM3,yaw);
-	TIM_SetCompare2(TIM3,pitch);
-}
+//void gimbal_control(uint16_t pitch, uint16_t yaw)
+//{
+//	TIM_SetCompare1(TIM3,yaw);
+//	TIM_SetCompare2(TIM3,pitch);
+//}
 
 void pwm_output(uint8_t channal,uint32_t pulse)
 {

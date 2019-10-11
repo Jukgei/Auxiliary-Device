@@ -10,7 +10,7 @@
 #define USART3_DMA_TX_BUFFER_LEN 150u
 #define USART3_DMA_RX_BUFFER_LEN 50u
 
-#define BUFF_SIZE					29
+#define BUFF_SIZE					25
 
 void USART3_Configuration(void);
 void decoder(uint8_t * buff);

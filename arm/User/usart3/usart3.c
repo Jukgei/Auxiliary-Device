@@ -13,12 +13,12 @@ extern uint16_t distance;
 extern uint16_t signal_strength;
 
 uint8_t gripper_status = 0;	//手爪状态
-uint8_t feedback = 0;
+//uint8_t feedback = 0;
 uint16_t position[5] = {0};	//TX2传回的舵机位置
 uint16_t time[5] = {0};			//TX2传回的舵机运动时间
 uint16_t gimbal[2] = {0};		//TX2传回的云台的控制量（PWM值）
 extern uint8_t gimbal_data[10]; //云台的STM32传回来的yaw/pitch
-bool isfeedback = false;
+//bool isfeedback = false;
 
 void USART3_Configuration(void)
 {
@@ -83,10 +83,10 @@ void USART3_IRQHandler(void)
 			ucTemp = USART_ReceiveData(USART3);
 			usart_buff[i] = ucTemp;
 			i = i + 1;
-			if(i == 30) 
+			if(i == 25) 
 			{
 				i = 0;
-				isfeedback = true;
+//				isfeedback = true;
 			}
     }
 }
@@ -102,12 +102,12 @@ void decoder(uint8_t * buff)
 		for(i = 0, j = 4; i < 5; i++, j+=4)
 			time[i] = BYTE_TO_HW(buff[j+1],buff[j]);
 		gripper_status = buff[22];
-		gimbal[0] = BYTE_TO_HW(buff[24],buff[23]);
-		gimbal[1] = BYTE_TO_HW(buff[26],buff[25]);
-		if(isfeedback)
-		{
-			feedback = buff[27];
-		}
+//		gimbal[0] = BYTE_TO_HW(buff[24],buff[23]);
+//		gimbal[1] = BYTE_TO_HW(buff[26],buff[25]);
+//		if(isfeedback)
+//		{
+//			feedback = buff[27];
+//		}
 	}
 }
 //向TX-2发送雷达测距
@@ -139,44 +139,52 @@ void SendDistance(void)
 }
 
 
+//void signal_feedback(void)
+//{
+//	if((feedback & 0x01) == 0x01)	//第0位为1返回高度
+//	{
+//		SendDistance();	
+//		feedback &= 0xFE;
+//	}
+//	if((feedback & 0x02) == 0x02) //第1位为1返回1号舵机位置
+//	{
+//		SendPostion(1);
+//		feedback &= 0xFD;
+//	}
+//	if((feedback & 0x04) == 0x04) //第2位为1返回2号舵机位置
+//	{
+//		SendPostion(2);
+//		feedback &= 0xFB;
+//	}
+//	if((feedback & 0x08) == 0x08) //第3位为1返回3号舵机位置
+//	{
+//		SendPostion(3);
+//		feedback &= 0xF7;
+//	}
+//	if((feedback & 0x10) == 0x10) //第4位为1返回4号舵机位置
+//	{
+//		SendPostion(4);
+//		feedback &= 0xEF;
+//	}
+//	if((feedback & 0x20) == 0x20) //第5位为1返回5号舵机位置
+//	{
+//		SendPostion(5);
+//		feedback &= 0xDF;
+//	}
+//	if((feedback & 0x40) == 0x40) //第6位为1返回yaw角和pitch角度，由于无法修改云台程序、故删去。应该继续使用
+//	{
+//		Send_Gimbal();
+//		feedback &= 0xBF;
+//	}
+//	isfeedback = false;
+//}
+
 void signal_feedback(void)
 {
-	if((feedback & 0x01) == 0x01)	//第0位为1返回高度
-	{
-		SendDistance();	
-		feedback &= 0xFE;
-	}
-	if((feedback & 0x02) == 0x02) //第1位为1返回1号舵机位置
-	{
-		SendPostion(1);
-		feedback &= 0xFD;
-	}
-	if((feedback & 0x04) == 0x04) //第2位为1返回2号舵机位置
-	{
-		SendPostion(2);
-		feedback &= 0xFB;
-	}
-	if((feedback & 0x08) == 0x08) //第3位为1返回3号舵机位置
-	{
-		SendPostion(3);
-		feedback &= 0xF7;
-	}
-	if((feedback & 0x10) == 0x10) //第4位为1返回4号舵机位置
-	{
-		SendPostion(4);
-		feedback &= 0xEF;
-	}
-	if((feedback & 0x20) == 0x20) //第5位为1返回5号舵机位置
-	{
-		SendPostion(5);
-		feedback &= 0xDF;
-	}
-	if((feedback & 0x40) == 0x40) //第6位为1返回yaw角和pitch角度，由于无法修改云台程序、故删去。应该继续使用
-	{
-		Send_Gimbal();
-		feedback &= 0xBF;
-	}
-	isfeedback = false;
+	uint8_t i;
+	for(i = 1; i <= 5 ; i++)
+		SendPostion(i);
+	SendDistance();
 }
 
 int fputc(int ch, FILE *f)

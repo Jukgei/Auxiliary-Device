@@ -8,7 +8,7 @@
 #define MIN_PULSE 1000
 
 void TIM3_Configurate(uint32_t arr, uint16_t psc);
-void gimbal_control(uint16_t pitch, uint16_t yaw);
+//void gimbal_control(uint16_t pitch, uint16_t yaw);
 
 
 

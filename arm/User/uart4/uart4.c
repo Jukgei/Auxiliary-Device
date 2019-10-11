@@ -5,7 +5,7 @@
 
 //uint8_t gimbal_data[10] = {0};
 //uint8_t gimbal[10] = {0};
-extern uint8_t gimbal_send[10];
+//extern uint8_t gimbal_send[10];
 void UART4_Configuration(void)
 {
 	
@@ -44,66 +44,66 @@ void UART4_Configuration(void)
     USART_Cmd(UART4, ENABLE);
 }
 
-void Get_Gimbal_Data(void)
-{
-	//memcpy(gimbal_data,0,10);		//先把数据清空
-	USART_SendData(UART4,0xAA);	//从USART4发出，发给云台的stm32，发帧头
-	Delay_us(10);
-	USART_SendData(UART4,0xAA);	//从USART4发出，发给云台的stm32，发帧头
-	Delay_us(100);
-}
+//void Get_Gimbal_Data(void)
+//{
+//	//memcpy(gimbal_data,0,10);		//先把数据清空
+//	USART_SendData(UART4,0xAA);	//从USART4发出，发给云台的stm32，发帧头
+//	Delay_us(10);
+//	USART_SendData(UART4,0xAA);	//从USART4发出，发给云台的stm32，发帧头
+//	Delay_us(100);
+//}
 
-void Send_Gimbal(void)
-{
-	uint8_t i = 0;
-	for(i = 0; i < 10 ; i++)
-	{
-		USART_SendData(USART3,gimbal_send[i]);
-		Delay_us(10);
-	}
-}
+//void Send_Gimbal(void)
+//{
+//	uint8_t i = 0;
+//	for(i = 0; i < 10 ; i++)
+//	{
+//		USART_SendData(USART3,gimbal_send[i]);
+//		Delay_us(10);
+//	}
+//}
 
 void UART4_IRQHandler(void)
 {
-	uint8_t Res;
-	static bool isGotFrameHeader = false;
-	static uint8_t frameHeaderCount = 0;
+//	uint8_t Res;
+//	static bool isGotFrameHeader = false;
+//	static uint8_t frameHeaderCount = 0;
 	//static uint8_t dataLength = 2;
-	static uint8_t dataCount = 0;
-	static uint8_t gimbal[10] = {0};
+//	static uint8_t dataCount = 0;
+//	static uint8_t gimbal[10] = {0};
 	if (USART_GetITStatus(UART4, USART_IT_RXNE) != RESET)  //判断接收中断
 	{
-		Res = USART_ReceiveData(UART4);//(USART1->DR);	//取出接收寄存器数据
-		if (!isGotFrameHeader) //判断帧头
-		{  
-			if (Res == 0xAA) 
-			{
-				frameHeaderCount++;
-				if (frameHeaderCount == 2)
-				{
-					frameHeaderCount = 0;
-					isGotFrameHeader = true;
-					dataCount = 1;
-				}
-			} 
-			else 
-			{
-				isGotFrameHeader = false;
-				dataCount = 2;
-				frameHeaderCount = 0;
-			}
-		}
-		if(isGotFrameHeader)
-		{
-			gimbal[dataCount] = Res;
-			dataCount = (dataCount+1)%10;
-		}
-		if(dataCount == 0 && isGotFrameHeader)
-		{
-			isGotFrameHeader = false;
-			gimbal[0] = 0xAA;
-			gimbal[1] = 0xAA;
-			//memcpy(gimbal_data,gimbal,10);
-		}
+//		Res = USART_ReceiveData(UART4);//(USART1->DR);	//取出接收寄存器数据
+//		if (!isGotFrameHeader) //判断帧头
+//		{  
+//			if (Res == 0xAA) 
+//			{
+//				frameHeaderCount++;
+//				if (frameHeaderCount == 2)
+//				{
+//					frameHeaderCount = 0;
+//					isGotFrameHeader = true;
+//					dataCount = 1;
+//				}
+//			} 
+//			else 
+//			{
+//				isGotFrameHeader = false;
+//				dataCount = 2;
+//				frameHeaderCount = 0;
+//			}
+//		}
+//		if(isGotFrameHeader)
+//		{
+//			gimbal[dataCount] = Res;
+//			dataCount = (dataCount+1)%10;
+//		}
+//		if(dataCount == 0 && isGotFrameHeader)
+//		{
+//			isGotFrameHeader = false;
+//			gimbal[0] = 0xAA;
+//			gimbal[1] = 0xAA;
+//			//memcpy(gimbal_data,gimbal,10);
+//		}
 	}
 }
