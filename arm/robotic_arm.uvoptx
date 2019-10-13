@@ -242,12 +242,12 @@
         <Ww>
           <count>6</count>
           <WinNumber>1</WinNumber>
-          <ItemText>feedback</ItemText>
+          <ItemText>position,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>7</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gimbal_data</ItemText>
+          <ItemText>temp</ItemText>
         </Ww>
         <Ww>
           <count>8</count>

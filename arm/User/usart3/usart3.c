@@ -94,7 +94,7 @@ void USART3_IRQHandler(void)
 //解从TX2发过来的数据包
 void decoder(uint8_t * buff)
 {
-	if(buff[0] == 0xDD && buff[1] == 0xDD && (buff[28] == 0x22) && buff[29] == 0x22)
+	if(buff[0] == 0xDD && buff[1] == 0xDD && (buff[23] == 0x22) && buff[24] == 0x22)
 	{
 		int i = 0, j = 0;
 		for(i = 0, j = 2; i < 5; i++, j+=4)
