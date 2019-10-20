@@ -222,12 +222,12 @@
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>position</ItemText>
+          <ItemText>position,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>time</ItemText>
+          <ItemText>time,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>4</count>

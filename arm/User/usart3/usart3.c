@@ -15,7 +15,7 @@ extern uint16_t signal_strength;
 uint8_t gripper_status = 0;	//手爪状态
 //uint8_t feedback = 0;
 uint16_t position[5] = {500, 500, 131, 141, 468};	//TX2传回的舵机位置
-uint16_t time[5] = {3000, 3000, 3000, 3000, 3000};			//TX2传回的舵机运动时间
+uint16_t time[5] = {20, 20, 20, 20, 20};			//TX2传回的舵机运动时间
 uint16_t gimbal[2] = {0};		//TX2传回的云台的控制量（PWM值）
 extern uint8_t gimbal_data[10]; //云台的STM32传回来的yaw/pitch
 //bool isfeedback = false;
