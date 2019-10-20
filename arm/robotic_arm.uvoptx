@@ -232,7 +232,7 @@
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gimbal</ItemText>
+          <ItemText>usart_buff</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
@@ -247,12 +247,12 @@
         <Ww>
           <count>7</count>
           <WinNumber>1</WinNumber>
-          <ItemText>temp</ItemText>
+          <ItemText>position</ItemText>
         </Ww>
         <Ww>
           <count>8</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gimbal_pitch</ItemText>
+          <ItemText>debugadd,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>9</count>
