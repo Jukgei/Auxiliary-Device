@@ -31,7 +31,7 @@
 		接收：	[0xAA] [0xAA] [Yaw: 4 byte float] [Pitch: 4 byte float]
 		
 	信号不可信表示值：（指在TX2上收到的数据）
-		高度： 		0xFFFF （读到此数时，表示不可信）
+		高度： 		0xFFFF （读到此数时，表示不可信）(前面暂时不用，这个是激光雷达的。后面是超声波的) 返回0代表不可信，用超声波
 		舵机位置：  >1000 时候不可信
 		云台角度：  若有返回，必可信。（开不开心？）（取消）
 		
@@ -41,10 +41,10 @@
 	usart6：接受imu数据		\				PC7					(暂时取消)
 	can1：	3个电机通信		\			PD0 R	 |	PD1	D		(取消)
 	TIM6：	系统时基			1
-	TIM7:	超声波定时计数	\			(暂时取消)
-	EXIT0:	超声波管脚		\			PE0->Echo | PE1-> Trig	(暂时取消)
+	TIM7:	超声波定时计数	4			
+	EXIT0:	超声波管脚		2			PE0->Echo | PE1-> Trig	(暂时取消)
 	usart1: 机械臂舵机		3			PA9->TX   | PA10->RX
-	usart2: 激光雷达测高		2			PA2->TX	  |	PA3->RX
+	usart2: 激光雷达测高		\			PA2->TX	  |	PA3->RX	(暂时取消)
 	TIM3:	输出4路PWM 			无		CH1:PB4 | CH2:PB3 | CH3:PB0 | CH4:PB1		// PB0是夹子，PB4:yaw和PB3:pitch
 	GPIO    控制夹子电机正反转 	无		PC2 | PC3	pwm_out: PB0
 			舵机控制            无		yaw：PB4		pitch：PB3 

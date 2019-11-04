@@ -45,7 +45,7 @@ void TIM7_Configureation(void)		//ÓÃÓÚ³¬Éù²¨ 100us
 		NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
     nvic.NVIC_IRQChannel                    =   TIM7_IRQn;
     nvic.NVIC_IRQChannelPreemptionPriority  =   1;
-    nvic.NVIC_IRQChannelSubPriority         =   1;
+    nvic.NVIC_IRQChannelSubPriority         =   4;
     nvic.NVIC_IRQChannelCmd                 =   ENABLE;
     NVIC_Init(&nvic);
 

@@ -18,12 +18,12 @@ int main()
 	TIM6_Configureation();						//system time base						
 	//USART6_Configuration();						//imu of gimbal
 	USART3_Configuration();  					//TX2
-	USART2_Configuration();						//ladar
+	//USART2_Configuration();						//ladar
 	USART1_Configuration();						//servo arm
 	gripper_init();										//
-	//TIM7_Configureation();						//ultransonic
+	TIM7_Configureation();						//ultransonic
 	//TIM3_Configurate(20000-1,84-1);		//pwm: gimbal yaw and pitch; gripper;
-	//ultransonic_init();								//ultransonic
+	ultransonic_init();								//ultransonic
 	Servo_Init();
 	//UART4_Configuration();
 	while(1)
@@ -37,6 +37,7 @@ int main()
 		if(time_tick_1ms % 20 == 0) //50Hz 控制舵机、反馈信息。
 		{
 			ArmControl();
+			ultransonic_start();
 			signal_feedback();
 			//SendDistance();
 		}

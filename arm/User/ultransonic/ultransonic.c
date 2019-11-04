@@ -1,6 +1,7 @@
 #include "ultransonic.h"
 
 extern uint32_t ultrasonic;
+extern uint16_t distance;
 float height = 0;
 bool test_high = false;
 
@@ -94,6 +95,7 @@ void EXTI0_IRQHandler(void)
 			TIM_Cmd(TIM7, DISABLE);
 			
 			height = ((float)ultrasonic*0.0001 * 340.0)/2.0;					//100us = 0.0001s
+			distance = (uint16_t)(height*1000);
 			//printf("height is :%f\n",height);			
 			ultrasonic = 0;
 			SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOE, EXTI_PinSource0);

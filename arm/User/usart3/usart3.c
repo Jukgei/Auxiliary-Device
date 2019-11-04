@@ -113,9 +113,6 @@ void decoder(uint8_t * buff)
 //向TX-2发送雷达测距
 void SendDistance(void)
 {
-	//如果信号可信，则发距离，先发第八位再发高八位
-	if(signal_strength > 100 && signal_strength < 65535)
-	{
 		USART_SendData(USART3,0xEE);
 		Delay_us(10);
 		USART_SendData(USART3,0xEE);
@@ -123,19 +120,29 @@ void SendDistance(void)
 		USART_SendData(USART3,(uint8_t)(distance));
 		Delay_us(10);
 		USART_SendData(USART3,(uint8_t)((distance) >> 8));
-		Delay_us(10);
-	}
-	else//信号不可信，发0xffff
-	{
-		USART_SendData(USART3,0xEE);
-		Delay_us(10);
-		USART_SendData(USART3,0xEE);
-		Delay_us(10);
-		USART_SendData(USART3,0xff);
-		Delay_us(10);
-		USART_SendData(USART3,0xff);
-		Delay_us(10);
-	}
+	//如果信号可信，则发距离，先发第八位再发高八位
+//	if(signal_strength > 100 && signal_strength < 65535)
+//	{
+//		USART_SendData(USART3,0xEE);
+//		Delay_us(10);
+//		USART_SendData(USART3,0xEE);
+//		Delay_us(10);
+//		USART_SendData(USART3,(uint8_t)(distance));
+//		Delay_us(10);
+//		USART_SendData(USART3,(uint8_t)((distance) >> 8));
+//		Delay_us(10);
+//	}
+//	else//信号不可信，发0xffff
+//	{
+//		USART_SendData(USART3,0xEE);
+//		Delay_us(10);
+//		USART_SendData(USART3,0xEE);
+//		Delay_us(10);
+//		USART_SendData(USART3,0xff);
+//		Delay_us(10);
+//		USART_SendData(USART3,0xff);
+//		Delay_us(10);
+//	}
 }
 
 
